@@ -7,23 +7,25 @@ public class practice {
         planner_visual();
     }    
 
-    public static String planner_visual(){
-        String output = "";
+    public static void planner_visual(){
         try{
             FileReader file = new FileReader("todolist.txt");
             Scanner read = new Scanner(file);
-            String line = read.nextLine();
-            do{
+            String line = ""; 
+            while (!line.equals("\"")){
                 line = read.nextLine();
-                if(line.equals("xx"))return "No plans today";
-                output += line;
-            }while (!line.equals("\""));
+                if(line.trim().equals("xx")){
+                    System.out.println("No plans today");
+                    break;
+                }
+                System.out.println(line);
+            }
             read.close();
         
         } catch(FileNotFoundException e){
-            return "FILE NOT FOUND";
+            System.out.println("FILE NOT FOUND");
         }
         
-        return output;
+        
     }
 }
