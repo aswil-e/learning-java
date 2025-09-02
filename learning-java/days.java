@@ -2,36 +2,25 @@ import java.io.*;
 import java.util.*;
 
 public class days {
+    private final int No_OF_ELEMENTS = 4;
     private String availability;
     public String date;
-    public String day;
-    private String data;
-    private String plannerfile = "todolist.txt";
+    public String day = "?????";
+    private String data = "";
+    private planner plannerfile = new planner();
+    private ArrayList<String> todoList = plannerfile.todolist;
 
     public days(String date){
-        try{
-            FileReader file = new FileReader(plannerfile);
-            Scanner read = new Scanner(file);
-            while (read.hasNextLine()) {
-                String line = read.nextLine().trim();
-                if (line.equals(date)) {
-                    this.date = line;
-                    if (read.hasNextLine()) this.availability = read.nextLine().trim();
-                    if (read.hasNextLine()) this.day = read.nextLine().trim();
-                    if (read.hasNextLine()) this.data = read.nextLine().trim();
-                    break;
-                } else if (line.equals("**END**")) {
+        int index = checkifpresent(date);
+            if(index >= 0){
+                this.date = date;
+                this.day = todoList.get(index + 2);
+                this.data += todoList.get(3) + "\n";
+                
+            }else{
                     this.date = date;
-                    this.day = "?????";
-                    this.data = "??:?? Entry not present.";
-                    break;
+                    this.data = "??:??     \tEntry not present.";
                 }
-            }
-            read.close();
-
-        }catch(FileNotFoundException e){
-            System.out.println("FILE NOT FOUND");
-        }
     }
 
     public days(){
@@ -54,29 +43,29 @@ public class days {
         this.data = data;
     }
 
-    private boolean checkifpresent(String date){
-        try{
-            FileReader file = new FileReader(plannerfile);
-            Scanner read = new Scanner(file);
-            while (read.hasNextLine()) {
-                if(read.nextLine().equals(date)) return true;
+    private int checkifpresent(String date){
+        for (int i = 0; i < todoList.size(); i++) {
+            if (todoList.get(i).equals(date)) {
+                return i;
             }
-        }catch(FileNotFoundException e){
-            System.out.println("FILE NOT FOUND");
         }
-        return false;
+        return -1;
     }
 
     public void addtoplanner(){
         adddate();
+        if(checkifpresent(date) < 0){
         adddata();
-        try{
-            FileWriter file = new FileWriter(plannerfile, true);
-            file.write(date + "\n00\n" + day + "\n" + data + "\n\"\n");
-            file.close();
-
-        }catch(IOException e){
-            System.out.println("FILE NOT FOUND");
+        todoList.remove(todoList.size()-1);
+        todoList.add(this.date);
+        todoList.add("00");
+        todoList.add(this.day);
+        todoList.add(this.data);
+        todoList.add("\"");
+        todoList.add("**END**");
+        plannerfile.addtoplanner();
+        }else{
+            System.out.println("Entry already present.");
         }
     }
 
@@ -84,7 +73,7 @@ public class days {
         boolean correctday = false; 
         Scanner input = new Scanner(System.in);
         while (!correctday) {
-            System.out.print("\nwhat is the day of the weak.\n\tA: Monday\tB: Tuesday\n\tC: Wednesday\tD: Thursday\n\tE: Friday\tF: Saturday\n\tG: Sunday \n\t:-");
+            System.out.print("\nwhat is the day of the weak.\n\tA: Monday\tB: Tuesday\n\tC: Wednesday\tD: Thursday\n\tE: Friday\tF: Saturday\n\tG: Sunday \n\t:- ");
             String dayofweek = input.nextLine();  
             switch (dayofweek.toUpperCase()) {
                 case "A":
@@ -135,19 +124,14 @@ public class days {
             month = input.nextInt();
             System.out.print("\tyear: ");
             year = input.nextInt();
-            if(checkifpresent(String.format("%02d/%02d/%04d",month , day , year))){
-                System.out.println("entry all ready present.");
-                break;
-            }else{
-                this.date = String.format("%02d/%02d/%04d", month,  day, year);
-                break;
-            }
+            this.date = String.format("%02d/%02d/%04d", month,  day, year);
+            
         }
     }
 
     public static String addtime(){
         Scanner input = new Scanner(System.in);
-        System.out.println("what is the time(24Hr):- ");
+        System.out.println("\nwhat is the time(24Hr):- ");
         int hours = -1, minutes = -1;
         while(hours < 0 || hours > 23 || minutes < 0 || minutes > 59){
             System.out.print("\tHours:  ");
@@ -161,14 +145,18 @@ public class days {
 
     public void adddata(){
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter data:- \n\t-");
+        System.out.print("\nEnter data:- \n\t- ");
         String data = input.nextLine();
-        this.data = addtime() + "\t" + data;
+        this.data = addtime() + "-\t" + data;
+    }
+
+    public void delete_data(){
+
     }
 
     public void to_String(){
         System.out.println("\n\t** DAY PLANNER **");
-        System.out.printf("%-10s", day + " "+ date + "\n");
+        System.out.printf("%-10s\t%-10s\n", date, day);
         System.out.println(data_get());
         
     }

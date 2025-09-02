@@ -1,9 +1,8 @@
-import java.io.*;
 import java.util.*;
 
 public class practice {
     public static void main(String[] args) {
-        String default_date = "09/28/2025";
+        String default_date = "08/28/2025";
         boolean run = true;
         Scanner input = new Scanner(System.in);
         days dayplanner = new days(default_date);
@@ -16,9 +15,8 @@ public class practice {
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
                 case "A":
-                    days newday = new days();
-                    newday.addtoplanner();
-                    newday.to_String();
+                    dayplanner.addtoplanner();
+                    dayplanner.to_String();
                     break;
                 
                 case "B":
@@ -39,7 +37,8 @@ public class practice {
                         }else{
                             date = String.format("%02d/%02d/%04d", month,  day, year);
                             days retrive = new days(date);
-                            retrive.to_String(); 
+                            retrive.to_String();
+                            
                         }
                     }
                     break;
