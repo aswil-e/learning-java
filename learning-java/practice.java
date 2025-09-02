@@ -3,100 +3,57 @@ import java.util.*;
 
 public class practice {
     public static void main(String[] args) {
-        System.out.println("**DAY PLANNER**");
-        planner_visual();
-    }    
+        String default_date = "09/28/2025";
+        boolean run = true;
+        Scanner input = new Scanner(System.in);
+        days dayplanner = new days(default_date);
+        dayplanner.to_String();
+        String choice = "";
 
-    public static void planner_visual(){
-        try{
-            FileReader file = new FileReader("todolist.txt");
-            Scanner read = new Scanner(file);
-            String line = ""; 
-            while (!line.equals("\"")){
-                line = read.nextLine();
-                if(line.trim().equals("xx")){
-                    System.out.println("No plans today");
+        while(run){
+            System.out.println("\nwould you like to:- ");
+            System.out.print(" A: Create New Enrtry.\n B: view specific date.\n E: Exit \n : ");
+            choice = input.nextLine();
+            switch (choice.toUpperCase()) {
+                case "A":
+                    days newday = new days();
+                    newday.addtoplanner();
+                    newday.to_String();
                     break;
-                }
-                if(line.endsWith("#")){
-                    System.out.println(line);
-                }
-            }
-            read.close();
-        
-        } catch(FileNotFoundException e){
-            System.out.println("FILE NOT FOUND");
-        }
-    }
+                
+                case "B":
+                    System.out.println("\nWhat is the date:-");
+                    String date = "";
+                    int day = 0, month = 0, year = 0;
+                    while(date.isEmpty()){
+                        System.out.print("\tday: ");
+                        day = input.nextInt();
+                        System.out.print("\tmonth: ");
+                        month = input.nextInt();
+                        System.out.print("\tyear: ");
+                        year = input.nextInt();
+                        input.nextLine();
 
-    public static void addtoplanner(){
-        try{
-            FileWriter file = new FileWriter("todolist.txt");
-            Scanner input = new Scanner(System.in);
-            String day = "", data = "";
-            int hours = 0, minutes = 0;
-            Boolean correctdata = false;
+                        if (day < 1 ||  day > 31 || month < 1 || month > 12 || year < 2025) {
+                            System.out.println("!!Invalid Input.Try Again!!");
+                        }else{
+                            date = String.format("%02d/%02d/%04d", month,  day, year);
+                            days retrive = new days(date);
+                            retrive.to_String(); 
+                        }
+                    }
+                    break;
 
-            while (!correctdata) {
-                System.out.print("Day of the weak: ");
-                day += input.nextLine();
-                switch (day.toLowerCase().strip()) {
-                    case "monday":
-                        file.write("Monday\n");
-                        correctdata = true;
-                        break;
-                    case "tuesday":
-                        file.write("Tuesday\n");
-                        correctdata = true;
-                        break;
-                    case "wednesday":
-                        file.write("Wednesday\n");
-                        correctdata = true;
-                        break;
-                    case "thursday":
-                        file.write("Thursday\n");
-                        correctdata = true;
-                        break;
-                    case "friday":
-                        file.write("Friday\n");
-                        correctdata = true;
-                        break;
-                    case "saturday":
-                        file.write("Saturday\n");
-                        correctdata = true;
-                        break;
-                    case "sunday":
-                        file.write("Sunday\n");
-                        correctdata = true;
-                        break;
-                    default:
-                        System.out.println("invalid information. Try again");
+                case "E":
+                    run = false;
+                    break;
+                
+                default:
+                    break;
+
                     
-                }
             }
-            
-            System.out.println("\nTime:-");
-            System.out.print("Hour(24HR system): ");
-            hours = input.nextInt();
-            while (hours < 0 || hours > 23) {
-                System.out.println("invalid input");
-                hours = input.nextInt();
-            }
-            
-            System.out.print("minutes: ");
-            minutes = input.nextInt();
-            while (minutes < 0 || minutes > 59) {
-                System.out.println("invalid input");
-                minutes = input.nextInt();
-            }
-
-            data += String.format("%02d", hours);
-            data += ":" + String.format("%02d", minutes);
-            file.write(data);
-            file.close();
-            input.close();
-        }catch(IOException e) {
-            System.out.println("An error occurred.");
         }
-    }
+        
+}   
 }
