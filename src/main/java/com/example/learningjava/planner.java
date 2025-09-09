@@ -1,9 +1,10 @@
+package com.example.java.learningjava;
 import java.io.*;
 import java.util.*;
 
 public class planner {
     public ArrayList<String> todolist = new ArrayList<>();
-    private String filename = "todolist.txt";
+    private String filename = "C:\\Users\\DELL\\Desktop\\demo\\src\\main\\java\\com\\example\\java\\todolist.txt";
 
     public planner(){
         try{
@@ -21,8 +22,7 @@ public class planner {
     public void addtoplanner(){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false));
-            for (String l : todolist) {
-                System.out.println(l);
+            for (String l : todolist){
                 writer.write(l);
                 writer.newLine();
             }

@@ -1,10 +1,11 @@
+package com.example.java.learningjava;
 import java.io.*;
 import java.util.*;
 
 public class days {
-    private final int No_OF_ELEMENTS = 4;
     private String availability;
     public String date;
+    public String time;
     public String day = "?????";
     private String data = "";
     private planner plannerfile = new planner();
@@ -13,13 +14,17 @@ public class days {
     public days(String date){
         int index = checkifpresent(date);
             if(index >= 0){
-                this.date = date;
-                this.day = todoList.get(index + 2);
-                this.data += todoList.get(3) + "\n";
-                
+                    this.date = date;
+                    this.day = todoList.get(index + 2);
+                    while (!todoList.get(index).equals("\"")) {
+                        if (todoList.get(index).startsWith("*")){
+                            this.data += todoList.get(index).substring(2,todoList.get(index).length()) + "\n";
+                        }
+                        index++;
+                    }
             }else{
                     this.date = date;
-                    this.data = "??:??     \tEntry not present.";
+                    this.data = "??:??     \tNo entry present.";
                 }
     }
 
@@ -43,9 +48,9 @@ public class days {
         this.data = data;
     }
 
-    private int checkifpresent(String date){
+    private int checkifpresent(String input){
         for (int i = 0; i < todoList.size(); i++) {
-            if (todoList.get(i).equals(date)) {
+            if (todoList.get(i).equals(input)) {
                 return i;
             }
         }
@@ -60,7 +65,7 @@ public class days {
         todoList.add(this.date);
         todoList.add("00");
         todoList.add(this.day);
-        todoList.add(this.data);
+        todoList.add( "* " + this.data);
         todoList.add("\"");
         todoList.add("**END**");
         plannerfile.addtoplanner();
@@ -129,7 +134,7 @@ public class days {
         }
     }
 
-    public static String addtime(){
+    public String addtime(){
         Scanner input = new Scanner(System.in);
         System.out.println("\nwhat is the time(24Hr):- ");
         int hours = -1, minutes = -1;
@@ -140,6 +145,7 @@ public class days {
             minutes = input.nextInt();
         }
         String time = String.format("%02d:%02d", hours, minutes);  
+        this.time = time;
         return time;
     }
 
@@ -147,11 +153,63 @@ public class days {
         Scanner input = new Scanner(System.in);
         System.out.print("\nEnter data:- \n\t- ");
         String data = input.nextLine();
-        this.data = addtime() + "-\t" + data;
+        this.data = "* " + addtime() + "-\t" + data;
     }
 
-    public void delete_data(){
+   /* public void delete_data(String date){
+        if(checkifpresent(date) > 0){
+            for (int i = todoList.indexOf(date)+ No_OF_ELEMENTS; i > todoList.indexOf(date); i--) {
+                todoList.remove(i);    
+            }
+        }
+    }*/
 
+    //add validation for choice options
+    public void edit(String date){
+        int index = checkifpresent(date);
+        String choice = "";
+        while (!choice.toUpperCase().equals("H")) {
+        if (index > 0) {
+            System.out.print("\nwould you like to:- \n\tA: edit existing time stamp\n\tB: Add new time stamp\n\tH: Home\n\t: ");
+            Scanner input = new Scanner(System.in);
+            choice = input.nextLine();
+            
+            switch (choice.toUpperCase()) {
+                case "A":
+                    String time = addtime();
+                    while (!todoList.get(index).equals("\"")) {
+                        System.out.println(todoList.get(index + 3).substring(2,7));
+                        if(todoList.get(index + 3).substring(2,7).equals(time)){
+                            System.out.print("\nEnter new data:- \n\t- ");
+                            String data = input.nextLine();
+                            todoList.set(index + 3, "* " + time + "-\t" + data);
+                            break;
+                        }
+                        index++;
+                    }
+                    plannerfile.addtoplanner();
+                    to_String();
+                    break;
+                
+                case "B":
+                    adddata();
+                    while (!todoList.get(index+3).equals("\"")) {
+                        if(todoList.get(index).startsWith("*") && Integer.parseInt(this.time.replace(":", "").strip()) == Integer.parseInt(todoList.get(index).substring(2,7))){
+                            System.out.println("Time Stamp present");
+                            index++;
+                        } 
+                    }if (todoList.get(index).equals("\"")) {
+                            todoList.add(todoList.lastIndexOf("\"")-1, this.data);
+                            
+                        }
+                    plannerfile.addtoplanner();
+                    break;
+
+                case "H":
+                    break;
+            }
+        }
+    }
     }
 
     public void to_String(){
