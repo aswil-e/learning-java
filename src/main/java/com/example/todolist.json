@@ -1,0 +1,37 @@
+[ {
+  "availability" : false,
+  "date" : "28/07/2025",
+  "day" : "Monday",
+  "time" : [ "01:05" ],
+  "data" : [ "test entry 1" ]
+}, {
+  "availability" : false,
+  "date" : "29/06/2025",
+  "day" : "Tuesday",
+  "time" : [ "02:05" ],
+  "data" : [ "test entry 2" ]
+}, {
+  "availability" : false,
+  "date" : "30/08/2025",
+  "day" : "Wednesday",
+  "time" : [ "03:05", "04:30", "08:00" ],
+  "data" : [ "test entry 3.1", "test entry 3.2", "test entry 3.3" ]
+}, {
+  "availability" : false,
+  "date" : "01/02/2025",
+  "day" : "Thursday",
+  "time" : [ "06:00" ],
+  "data" : [ "test entry 4" ]
+}, {
+  "availability" : false,
+  "date" : "03/02/2025",
+  "day" : "Friday",
+  "time" : [ "13:05" ],
+  "data" : [ "test entry 5" ]
+}, {
+  "availability" : false,
+  "date" : "09/18/2025",
+  "day" : "Thursday",
+  "time" : [ "11:57" ],
+  "data" : [ "TEST ENTRY FOR JSON 1" ]
+} ]
