@@ -30,8 +30,20 @@
   "data" : [ "test entry 5" ]
 }, {
   "availability" : false,
-  "date" : "09/18/2025",
+  "date" : "18/09/2025",
   "day" : "Thursday",
   "time" : [ "11:57" ],
   "data" : [ "TEST ENTRY FOR JSON 1" ]
+}, {
+  "availability" : false,
+  "date" : "23/04/2025",
+  "day" : "Wednesday",
+  "time" : [ "04:04" ],
+  "data" : [ "" ]
+}, {
+  "availability" : false,
+  "date" : "14/09/2025",
+  "day" : "Sunday",
+  "time" : [ "23:15" ],
+  "data" : [ "Test entry json 3" ]
 } ]
