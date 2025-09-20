@@ -3,16 +3,13 @@ package com.example.learningjava;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import javax.xml.crypto.Data;
-
 public class App {
-    static LocalDate today;
+    static LocalDate today ;
     static Scanner input = new Scanner(System.in);
     static LocalDate datetoday = LocalDate.now();
     static DateTimeFormatter f1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -30,7 +27,7 @@ public class App {
             switch (choice.toUpperCase()) {
                 case "A":
                     String dateA = datevalidation();
-                    if(dayPlanner.checkifpresent(dateA) < 0){
+                    if(dayPlanner.boolpresencecheck(dateA)){
                         List<String> time = new ArrayList<String>(), data = new ArrayList<String>(); 
                         time.add(timevalidation());
                         data.add(dataentry());
@@ -50,11 +47,12 @@ public class App {
                 case "C":
                     String dateC = datetoday.format(f1);
                     changes(dateC);
+                    break;
+
                 case "E":
                     run = false;
                     break;
-                
-                
+                                
                 default:
                     System.out.println("**Invalid Input! Try Again.**");
                     break;
@@ -62,12 +60,12 @@ public class App {
                     
             }}
         }
-    
+     
     public static void changes(String date){
         String choice = "";
         while (!choice.toUpperCase().equals("E")) {
             System.out.println("\nwould you like to:- ");
-            System.out.print(" A: Clear this entry.\n B: Edit time slot.\n C: Add new data\n E: Home.\n  :");
+            System.out.print(" A: Clear this entry.\n B: Edit time slot.\n C: Add new data.\n D: Delete time slot.\n E: Home.\n  :");
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
                 case "A":
@@ -81,19 +79,43 @@ public class App {
                     break;
 
                 case "B":
-                    String time = timevalidation();
-                    if(!dayPlanner.edittimeslot(time, date, dataentry())){
-                        System.out.println("**time slot not present**");
+                    
+                    if(dayPlanner.boolpresencecheck(date)){
+                        String time = timevalidation(), data = "";
+                        if(!dayPlanner.edittimeslot(time, date, data)){
+                            System.out.println("**time slot not present**");
+                        }
+                        dayPlanner.edittimeslot(time, date, dataentry());
+                    }else{
+                        System.out.println( "**entry empty**");
                     }
-                    dayPlanner.toString();
+                    dayPlanner.to_String(date);
                     break;
 
                 case "C":
-                    String timeC = timevalidation();
-                    dayPlanner.addtimeslot(date,timeC,dataentry());
+                    String timeC = timevalidation(), dataenter = dataentry();
+                    if(!dayPlanner.addtimeslot(date,timeC, dataenter)){
+                        List<String> timeclist = new ArrayList<String>(), data = new ArrayList<String>();
+                        today = LocalDate.now(); 
+                        timeclist.add(timeC);
+                        data.add(dataenter);
+                        dayPlanner.addtoplanner(addtoplanner(date, timeclist, data));
+                        
+                    };
+                    dayPlanner.to_String(date);
+                    break;
+                
+                case "D":
+                    String timeD = timevalidation();
+                    if (dayPlanner.Deletetimeslot(date, timeD)) {
+                        System.out.println("**deleted time slot [" + timeD + "]**");
+                    }
+                    System.out.println("**time slot not present**");
+                    ;
                     break;
 
                 case "E":
+
                     dayPlanner.to_String(datetoday.format(f1));
                     break;
                 default:

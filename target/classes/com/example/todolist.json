@@ -1,5 +1,41 @@
 [ {
   "availability" : false,
+  "date" : "01/02/2025",
+  "day" : "Thursday",
+  "time" : [ "06:00" ],
+  "data" : [ "test entry 4" ]
+}, {
+  "availability" : false,
+  "date" : "03/02/2025",
+  "day" : "Friday",
+  "time" : [ "13:05" ],
+  "data" : [ "test entry 5" ]
+}, {
+  "availability" : false,
+  "date" : "14/09/2025",
+  "day" : "Sunday",
+  "time" : [ "23:15" ],
+  "data" : [ "Test entry json 3" ]
+}, {
+  "availability" : false,
+  "date" : "18/09/2025",
+  "day" : "Thursday",
+  "time" : [ "11:57" ],
+  "data" : [ "TEST ENTRY FOR JSON 1" ]
+}, {
+  "availability" : false,
+  "date" : "19/09/2025",
+  "day" : "Friday",
+  "time" : [ "09:08" ],
+  "data" : [ "test entry with map 1" ]
+}, {
+  "availability" : false,
+  "date" : "23/04/2025",
+  "day" : "Wednesday",
+  "time" : [ "04:04" ],
+  "data" : [ "" ]
+}, {
+  "availability" : false,
   "date" : "28/07/2025",
   "day" : "Monday",
   "time" : [ "01:05" ],
@@ -16,34 +52,4 @@
   "day" : "Wednesday",
   "time" : [ "03:05", "04:30", "08:00" ],
   "data" : [ "test entry 3.1", "test entry 3.2", "test entry 3.3" ]
-}, {
-  "availability" : false,
-  "date" : "01/02/2025",
-  "day" : "Thursday",
-  "time" : [ "06:00" ],
-  "data" : [ "test entry 4" ]
-}, {
-  "availability" : false,
-  "date" : "03/02/2025",
-  "day" : "Friday",
-  "time" : [ "13:05" ],
-  "data" : [ "test entry 5" ]
-}, {
-  "availability" : false,
-  "date" : "18/09/2025",
-  "day" : "Thursday",
-  "time" : [ "11:57" ],
-  "data" : [ "TEST ENTRY FOR JSON 1" ]
-}, {
-  "availability" : false,
-  "date" : "23/04/2025",
-  "day" : "Wednesday",
-  "time" : [ "04:04" ],
-  "data" : [ "" ]
-}, {
-  "availability" : false,
-  "date" : "14/09/2025",
-  "day" : "Sunday",
-  "time" : [ "23:15" ],
-  "data" : [ "Test entry json 3" ]
 } ]
