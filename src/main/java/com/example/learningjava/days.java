@@ -1,22 +1,24 @@
 package com.example.learningjava;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class days {
     private boolean availability;
-    private String date;
+    private LocalDate date;
     private String day;
-    private List<String> time;
-    private List<String> data;
+    private List<LocalTime> time ;
+    private List<String> data ;
 
     public days(){
        
     }
 
-    public String getdate(){
+    public LocalDate getdate(){
         return date;
     }
 
-    public  void setdate(String date){
+    public  void setdate(LocalDate date){
         this.date = date;
     }
     
@@ -36,11 +38,11 @@ public class days {
         this.day = day;
     }
 
-    public List<String> gettime(){
+    public List<LocalTime> gettime(){
         return time;
     }
 
-    public  void setTime(List<String> time){
+    public  void setTime(List<LocalTime> time){
         this.time = time;
     }
 
@@ -49,7 +51,7 @@ public class days {
     }
 
     public  void setData(List<String> data){
-        this.data = data;
+        this.data= data;
     }
 
 }

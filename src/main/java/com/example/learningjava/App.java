@@ -12,45 +12,47 @@ public class App {
     static LocalDate today ;
     static Scanner input = new Scanner(System.in);
     static LocalDate datetoday = LocalDate.now();
-    static DateTimeFormatter f1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    static planner dayPlanner = new planner(datetoday.format(f1));
+    static planner dayPlanner;
     public static void main(String[] args) {
-        boolean run = true;
-        String choice;
+        try{
+    dayPlanner = new planner(datetoday);
+    }catch(Exception e){
+        System.out.println("sumn aynt right");
+    }
+        String choice = "";
         
-        dayPlanner.to_String(datetoday.format(f1));
+        view(datetoday);
 
-        while (run) {
+        while (!choice.toUpperCase().equals("E")) {
+            LocalDate date;
             System.out.println("\nwould you like to:- ");
             System.out.print(" A: Create New Enrtry.\n B: view specific date.\n C: Edit todays entry\n E: Exit \n : ");
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
                 case "A":
-                    String dateA = datevalidation();
-                    if(dayPlanner.boolpresencecheck(dateA)){
-                        List<String> time = new ArrayList<String>(), data = new ArrayList<String>(); 
-                        time.add(timevalidation());
-                        data.add(dataentry());
-                        dayPlanner.addtoplanner(addtoplanner(dateA, time, data));
-                        dayPlanner.to_String(dateA);
-                    }else{
-                        System.out.println("**entry already present**");
+                    try{
+                        date = datevalidation();
+                        dayPlanner.boolpresencecheck(date);
+                        LocalTime time = timevalidation();String data = dataentry(); 
+                        dayPlanner.addtoplanner(date, time, data);
+                        view(date);
+                    } catch (Exceptionpack e) {
+                        System.err.println("Error: " + e.getMessage());
                     }
-                    break;
                 
                 case "B":
-                    String dateB = datevalidation();
-                    dayPlanner.to_String(dateB);
-                    changes(dateB);
+                    date = datevalidation();
+                    view(date);
+                    changes(date);
                     break;
                 
                 case "C":
-                    String dateC = datetoday.format(f1);
-                    changes(dateC);
+                    date = datetoday;
+                    view(date);
+                    changes(date);
                     break;
 
                 case "E":
-                    run = false;
                     break;
                                 
                 default:
@@ -61,62 +63,58 @@ public class App {
             }}
         }
      
-    public static void changes(String date){
+    public static void changes(LocalDate date){
         String choice = "";
         while (!choice.toUpperCase().equals("E")) {
             System.out.println("\nwould you like to:- ");
             System.out.print(" A: Clear this entry.\n B: Edit time slot.\n C: Add new data.\n D: Delete time slot.\n E: Home.\n  :");
+            LocalTime time;String data;
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
                 case "A":
-                    if(dayPlanner.clearentry(date)){;
+                    try{
+                        dayPlanner.clearentry(date);
                         System.out.println("**ENTRY CLEARED**");
-                        dayPlanner.to_String(date);
-                    }else{
-                       System.out.println( "**entry already empty**");
-                       dayPlanner.to_String(date);
-                    }
+                    }catch(Exceptionpack e){
+                        System.err.println("Error: "+ e.getMessage());
+                    }  
+                    view(date);
                     break;
 
                 case "B":
-                    
-                    if(dayPlanner.boolpresencecheck(date)){
-                        String time = timevalidation(), data = "";
-                        if(!dayPlanner.edittimeslot(time, date, data)){
-                            System.out.println("**time slot not present**");
-                        }
+                    try{
+                        dayPlanner.boolpresencecheck(date);
+                        time = timevalidation(); data = "";                 
                         dayPlanner.edittimeslot(time, date, dataentry());
-                    }else{
-                        System.out.println( "**entry empty**");
+                    }catch(Exceptionpack e){
+                        System.err.println( "Error: " + e.getMessage());
                     }
-                    dayPlanner.to_String(date);
+                    view(date);
                     break;
 
                 case "C":
-                    String timeC = timevalidation(), dataenter = dataentry();
-                    if(!dayPlanner.addtimeslot(date,timeC, dataenter)){
-                        List<String> timeclist = new ArrayList<String>(), data = new ArrayList<String>();
+                    time = timevalidation();data = dataentry();
+                    try{
+                        dayPlanner.addtimeslot(date,time, data);
                         today = LocalDate.now(); 
-                        timeclist.add(timeC);
-                        data.add(dataenter);
-                        dayPlanner.addtoplanner(addtoplanner(date, timeclist, data));
                         
+                    }catch(Exceptionpack e){
+                        System.err.println( "Error: " + e.getMessage());
                     };
-                    dayPlanner.to_String(date);
+                    view(date);
                     break;
                 
                 case "D":
-                    String timeD = timevalidation();
-                    if (dayPlanner.Deletetimeslot(date, timeD)) {
-                        System.out.println("**deleted time slot [" + timeD + "]**");
+                    time = timevalidation();
+                    try {
+                        System.out.println("**deleted time slot [" + time + "]["+dayPlanner.Deletetimeslot(date, time)+"]**");
+                    }catch(Exceptionpack e){
+                        System.out.println("Error: " + e.getMessage());
                     }
-                    System.out.println("**time slot not present**");
-                    ;
                     break;
 
                 case "E":
-
-                    dayPlanner.to_String(datetoday.format(f1));
+                    view(datetoday);
                     break;
                 default:
                     System.out.println("**Invalid Input! Try Again.**");
@@ -125,11 +123,19 @@ public class App {
         }
     }
 
-    //what if the month has less or more days
-    public static String datevalidation(){
-        String date = "";
+    public static void view(LocalDate date) {
+        try {
+            dayPlanner.toString(date);
+        } catch (Exceptionpack e) {
+            System.err.println(e.getMessage());
+        }
+        
+    }
+
+    public static LocalDate datevalidation(){
+        LocalDate date = null;
         int day = 0, month = 0, year = 0;
-        while(day < 1 ||  day > 31 || month < 1 || month > 12 || year < 2025){
+        try{
             System.out.println("\nWhat is the date:-");
             System.out.print("\tday: ");
             day = input.nextInt();
@@ -137,26 +143,31 @@ public class App {
             month = input.nextInt();
             System.out.print("\tyear: ");
             year = input.nextInt();
-            date = String.format("%02d/%02d/%04d", day,  month, year);
             input.nextLine();
-            if (day < 1 ||  day > 31 || month < 1 || month > 12 || year < 2025) System.out.println("**Invalid Input! Try Again.**");
+            date = LocalDate.parse(String.format("%04d-%02d-%02d", year,  month, day));
+            today = LocalDate.of(year, month, day);
 
+        }catch(DateTimeException e){
+            System.err.println("Error : " + e.getMessage());
+            return datevalidation();
         }
-        today = LocalDate.of(year, month, day);
         return date;
     }
-
-    public static String timevalidation(){
+    //add the error text and stopage ting
+    public static LocalTime timevalidation(){
         int hours = -1, minutes = -1;
-        while(hours < 0 || hours > 23 || minutes < 0 || minutes > 59){
+        LocalTime time = null;
+        try{
             System.out.println("\nwhat is the time(24Hr):- ");
             System.out.print("\tHours:  ");
             hours = input.nextInt();
             System.out.print("\tminutes: ");
             minutes = input.nextInt();
-            if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) System.out.println("**Invalid Input! Try Again.**");
-        }
-        String time = String.format("%02d:%02d", hours, minutes);  
+            time = LocalTime.parse(String.format("%02d:%02d", hours, minutes));
+            
+        }catch(DateTimeException e){
+            System.out.println("Error : "+ e.getMessage());
+        } 
         return time;
     }
 
@@ -164,17 +175,6 @@ public class App {
         input.nextLine();
         System.out.print("\nEnter data:- \n\t- ");
         return input.nextLine();
-    }
-
-    public static days addtoplanner(String date, List<String> time, List<String> data){
-        DayOfWeek day = today.getDayOfWeek(); 
-        days newDay = new days();
-        newDay.setdate(date);
-        newDay.setday(day.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-        newDay.setavailability(false);
-        newDay.setTime(time);
-        newDay.setData(data);
-        return newDay;
     }
         
 
