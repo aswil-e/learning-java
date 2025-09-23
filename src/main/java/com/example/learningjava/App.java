@@ -135,39 +135,44 @@ public class App {
     public static LocalDate datevalidation(){
         LocalDate date = null;
         int day = 0, month = 0, year = 0;
-        try{
-            System.out.println("\nWhat is the date:-");
-            System.out.print("\tday: ");
-            day = input.nextInt();
-            System.out.print("\tmonth: ");
-            month = input.nextInt();
-            System.out.print("\tyear: ");
-            year = input.nextInt();
-            input.nextLine();
-            date = LocalDate.parse(String.format("%04d-%02d-%02d", year,  month, day));
-            today = LocalDate.of(year, month, day);
+        while (date.equals(null)) {
+            try{
+                System.out.println("\nWhat is the date:-");
+                System.out.print("\tday: ");
+                day = input.nextInt();
+                System.out.print("\tmonth: ");
+                month = input.nextInt();
+                System.out.print("\tyear: ");
+                year = input.nextInt();
+                input.nextLine();
+                date = LocalDate.parse(String.format("%04d-%02d-%02d", year,  month, day));
+                today = LocalDate.of(year, month, day);
 
-        }catch(DateTimeException e){
-            System.err.println("Error : " + e.getMessage());
-            return datevalidation();
+            }catch(DateTimeException e){
+                System.err.println("Error : " + e.getMessage());
+            }    
         }
+
         return date;
     }
-    //add the error text and stopage ting
+    
     public static LocalTime timevalidation(){
         int hours = -1, minutes = -1;
         LocalTime time = null;
-        try{
-            System.out.println("\nwhat is the time(24Hr):- ");
-            System.out.print("\tHours:  ");
-            hours = input.nextInt();
-            System.out.print("\tminutes: ");
-            minutes = input.nextInt();
-            time = LocalTime.parse(String.format("%02d:%02d", hours, minutes));
+        while (time.equals(null)) {
+            try{
+                System.out.println("\nwhat is the time(24Hr):- ");
+                System.out.print("\tHours:  ");
+                hours = input.nextInt();
+                System.out.print("\tminutes: ");
+                minutes = input.nextInt();
+                time = LocalTime.parse(String.format("%02d:%02d", hours, minutes));
             
-        }catch(DateTimeException e){
-            System.out.println("Error : "+ e.getMessage());
-        } 
+            }catch(DateTimeException e){
+                System.out.println("Error : check time format");
+            }
+        }
+         
         return time;
     }
 
