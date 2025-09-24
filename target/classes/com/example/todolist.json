@@ -2,66 +2,146 @@
   "availability" : false,
   "date" : [ 2023, 2, 3 ],
   "day" : "Friday",
-  "time" : [ [ 23, 1 ] ],
-  "data" : [ "Test entry for sorting (2025-09-23)" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "Test entry for sorting (2025-09-23)"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 2, 1 ],
   "day" : "Thursday",
-  "time" : [ [ 6, 0 ] ],
-  "data" : [ "test entry 4" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry 4"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 2, 3 ],
   "day" : "Sunday",
-  "time" : [ [ 23, 15 ] ],
-  "data" : [ "Test entry json 3" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "Test entry json 3"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 6, 29 ],
   "day" : "Tuesday",
-  "time" : [ [ 2, 5 ] ],
-  "data" : [ "test entry 2" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry 2"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 7, 28 ],
   "day" : "Monday",
-  "time" : [ [ 1, 5 ] ],
-  "data" : [ "test entry 1" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry 1"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 8, 30 ],
   "day" : "Wednesday",
-  "time" : [ [ 3, 5 ], [ 4, 30 ], [ 8, 0 ] ],
-  "data" : [ "test entry 3.1", "test entry 3.2", "test entry 3.3" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry 3.1"
+    },
+    "03:00" : {
+      "end" : [ 3, 0 ],
+      "data" : "test entry 3.2"
+    },
+    "05:00" : {
+      "end" : [ 5, 0 ],
+      "data" : "test entry 3.3"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 9, 10 ],
   "day" : "Wednesday",
-  "time" : [ [ 12, 12 ] ],
-  "data" : [ "test" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 9, 18 ],
   "day" : "Thursday",
-  "time" : [ [ 11, 57 ] ],
-  "data" : [ "TEST ENTRY FOR JSON 1" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "TEST ENTRY FOR JSON 1"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 9, 19 ],
   "day" : "Friday",
-  "time" : [ [ 9, 8 ] ],
-  "data" : [ "test entry with map 1" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry with map 1"
+    }
+  }
+}, {
+  "availability" : false,
+  "date" : [ 2025, 9, 20 ],
+  "day" : "Saturday",
+  "timeslots" : {
+    "09:00" : {
+      "end" : [ 3, 4 ],
+      "data" : "test"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2025, 9, 23 ],
   "day" : "Tuesday",
-  "time" : [ [ 5, 5 ], [ 6, 6 ], [ 3, 3 ] ],
-  "data" : [ "test data", "test data", "test data" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "test entry 1"
+    },
+    "03:00" : {
+      "end" : [ 3, 0 ],
+      "data" : "test entry 2"
+    },
+    "04:00" : {
+      "end" : [ 4, 0 ],
+      "data" : "test entry 3"
+    }
+  }
+}, {
+  "availability" : false,
+  "date" : [ 2025, 9, 24 ],
+  "day" : "Wednesday",
+  "timeslots" : {
+    "12:00" : {
+      "end" : [ 14, 0 ],
+      "data" : "test data"
+    }
+  }
 }, {
   "availability" : false,
   "date" : [ 2026, 2, 12 ],
   "day" : "Thursday",
-  "time" : [ [ 12, 23 ] ],
-  "data" : [ "Test Entry for sorting (2023-09-23)" ]
+  "timeslots" : {
+    "01:00" : {
+      "end" : [ 1, 0 ],
+      "data" : "Test Entry for sorting (2023-09-23)"
+    }
+  }
 } ]

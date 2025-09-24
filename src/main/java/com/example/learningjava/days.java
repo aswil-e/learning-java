@@ -1,14 +1,13 @@
 package com.example.learningjava;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
 public class days {
     private boolean availability;
     private LocalDate date;
     private String day;
-    private List<LocalTime> time ;
-    private List<String> data ;
+    private Map<String, slot> timeslots;
+    
 
     public days(){
        
@@ -38,20 +37,12 @@ public class days {
         this.day = day;
     }
 
-    public List<LocalTime> gettime(){
-        return time;
+    public void settimeslots(Map<String, slot> timeslots){
+        this.timeslots = timeslots;
     }
 
-    public  void setTime(List<LocalTime> time){
-        this.time = time;
-    }
-
-    public List<String> getData(){
-        return data;
-    }
-
-    public  void setData(List<String> data){
-        this.data= data;
+    public Map<String, slot> gettimeslots(){
+        return this.timeslots;
     }
 
 }

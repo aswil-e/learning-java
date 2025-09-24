@@ -26,10 +26,11 @@ public class App {
             switch (choice.toUpperCase()) {
                 case "A":
                     try{
+                        
                         date = datevalidation();
                         if (!dayPlanner.boolpresencecheck(date)) {
-                            LocalTime time = timevalidation();String data = dataentry(); 
-                            dayPlanner.addtoplanner(date, time, data);
+                            LocalTime starttime = timevalidation("Start"), endtime  = timevalidation("End");String data = dataentry(); 
+                            dayPlanner.addtoplanner(date, starttime, endtime, data);
                             view(date);
                             changes(date);
                             break;
@@ -68,7 +69,7 @@ public class App {
         while (!choice.toUpperCase().equals("E")) {
             System.out.println("\nwould you like to:- ");
             System.out.print(" A: Clear this entry.\n B: Edit time slot.\n C: Add new data.\n D: Delete time slot.\n E: Home.\n  :");
-            LocalTime time;String data;
+            LocalTime starttime, endTime;String data;
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
                 case "A":
@@ -84,8 +85,8 @@ public class App {
                 case "B":
                     try{
                         dayPlanner.boolpresencecheck(date);
-                        time = timevalidation(); data = "";                 
-                        dayPlanner.edittimeslot(time, date, dataentry());
+                        starttime = timevalidation("Start"); data = "";                 
+                        dayPlanner.edittimeslot(starttime, dataentry(), date);
                     }catch(Exceptionpack e){
                         System.err.println( "Error: " + e.getMessage());
                     }
@@ -93,9 +94,10 @@ public class App {
                     break;
 
                 case "C":
-                    time = timevalidation();data = dataentry();
+                    starttime = timevalidation("Start");data = dataentry();
                     try{
-                        dayPlanner.addtimeslot(date,time, data);
+                        endTime = timevalidation("End");
+                        dayPlanner.addtimeslot(date,starttime, endTime, data);
                         today = LocalDate.now(); 
                         
                     }catch(Exceptionpack e){
@@ -105,9 +107,9 @@ public class App {
                     break;
                 
                 case "D":
-                    time = timevalidation();
+                    starttime = timevalidation("Start");
                     try {
-                        System.out.println("**deleted time slot [" + time + "]["+dayPlanner.Deletetimeslot(date, time)+"]**");
+                        System.out.println("**deleted time slot [" + starttime + "]["+dayPlanner.Deletetimeslot(date, starttime)+"]**");
                     }catch(Exceptionpack e){
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -157,12 +159,12 @@ public class App {
         return date;
     }
     
-    public static LocalTime timevalidation(){
+    public static LocalTime timevalidation(String S){
         int hours = -1, minutes = -1;
         LocalTime time = null;
         while (time == null) {
             try{
-                System.out.println("\nwhat is the time(24Hr):- ");
+                System.out.println("\nwhat is the "+S+" time(24Hr):- ");
                 System.out.print("\tHours:  ");
                 hours = input.nextInt();
                 System.out.print("\tminutes: ");
