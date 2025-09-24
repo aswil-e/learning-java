@@ -1,11 +1,6 @@
 package com.example.learningjava;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
@@ -32,11 +27,16 @@ public class App {
                 case "A":
                     try{
                         date = datevalidation();
-                        dayPlanner.boolpresencecheck(date);
-                        LocalTime time = timevalidation();String data = dataentry(); 
-                        dayPlanner.addtoplanner(date, time, data);
-                        view(date);
-                    } catch (Exceptionpack e) {
+                        if (!dayPlanner.boolpresencecheck(date)) {
+                            LocalTime time = timevalidation();String data = dataentry(); 
+                            dayPlanner.addtoplanner(date, time, data);
+                            view(date);
+                            changes(date);
+                            break;
+                        }
+                        System.out.println("Error: Entry already present");
+                        
+                    } catch (Exception e) {
                         System.err.println("Error: " + e.getMessage());
                     }
                 
@@ -111,6 +111,7 @@ public class App {
                     }catch(Exceptionpack e){
                         System.out.println("Error: " + e.getMessage());
                     }
+                    view(date);
                     break;
 
                 case "E":
@@ -135,7 +136,7 @@ public class App {
     public static LocalDate datevalidation(){
         LocalDate date = null;
         int day = 0, month = 0, year = 0;
-        while (date.equals(null)) {
+        while (date ==  null) {
             try{
                 System.out.println("\nWhat is the date:-");
                 System.out.print("\tday: ");
@@ -159,13 +160,14 @@ public class App {
     public static LocalTime timevalidation(){
         int hours = -1, minutes = -1;
         LocalTime time = null;
-        while (time.equals(null)) {
+        while (time == null) {
             try{
                 System.out.println("\nwhat is the time(24Hr):- ");
                 System.out.print("\tHours:  ");
                 hours = input.nextInt();
                 System.out.print("\tminutes: ");
                 minutes = input.nextInt();
+                input.nextLine();
                 time = LocalTime.parse(String.format("%02d:%02d", hours, minutes));
             
             }catch(DateTimeException e){

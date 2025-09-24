@@ -4,7 +4,6 @@ import java.nio.file.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
@@ -15,7 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class planner {
     public days day;
     private Map<LocalDate, days> plannerMap = new TreeMap<>();
-    private Map<LocalTime, String> timeslotMap = new TreeMap<>();
+    private Map<LocalTime, String> timeslotMap;
     public List<days> todolist;
     private String filename = "C:\\Users\\DELL\\Desktop\\demo\\src\\main\\java\\com\\example\\todolist.json";
     private String content;
@@ -32,7 +31,7 @@ public class planner {
             for (days d : todolist) {
                 plannerMap.put(d.getdate(), d);
             }
-            mapper(date);
+            //mapper(date);
         }catch(Exception e){
             System.out.println(e.toString());
         }
@@ -71,7 +70,7 @@ public class planner {
         
     }
 
-    private void mapper(LocalDate date){
+    private void mapper(LocalDate date, Map<LocalTime, String> timeslotMap){
         int i = 0;
         for (LocalTime time : plannerMap.get(date).gettime()) {
             timeslotMap.put(time, plannerMap.get(date).getData().get(i++));
@@ -89,6 +88,8 @@ public class planner {
 
     public boolean edittimeslot(LocalTime time, LocalDate date, String data) throws Exceptionpack{
         if (plannerMap.containsKey(date)) {
+            timeslotMap = new TreeMap<>();
+            mapper(date, timeslotMap);
             if(timeslotMap.containsKey(time)){
                 timeslotMap.put(time, data);
                 plannerMap.get(date).getData().set(plannerMap.get(date).gettime().indexOf(time), data);
@@ -101,11 +102,13 @@ public class planner {
     }
     
     public boolean addtimeslot(LocalDate date, LocalTime time, String data) throws Exceptionpack{
+        timeslotMap = new TreeMap<>();
         if(!plannerMap.containsKey(date)){
             addtoplanner(date, time, data);
             timeslotMap.put(time, data);
             return true;
         }else{
+            mapper(date, timeslotMap);
             if (!timeslotMap.containsKey(time)){             
                 plannerMap.get(date).gettime().add(time);
                 plannerMap.get(date).getData().add(data);
@@ -117,16 +120,18 @@ public class planner {
         }
     }
 
-    public boolean boolpresencecheck(LocalDate querry) throws Exceptionpack{
+    public boolean boolpresencecheck(LocalDate querry){
         if (plannerMap.containsKey(querry)) {
             return true;
         }
-        throw new Exceptionpack("**entry not present**");
+        return false;
         
     }
 
     public String Deletetimeslot(LocalDate date, LocalTime time) throws Exceptionpack{
         if(plannerMap.containsKey(date)){
+            timeslotMap = new TreeMap<>();
+            mapper(date, timeslotMap);
             if (timeslotMap.containsKey(time)){
                 int index = plannerMap.get(date).gettime().indexOf(time);
                 String deleteddata = plannerMap.get(date).getData().get(index);

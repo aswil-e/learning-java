@@ -1,5 +1,11 @@
 [ {
   "availability" : false,
+  "date" : [ 2023, 2, 3 ],
+  "day" : "Friday",
+  "time" : [ [ 23, 1 ] ],
+  "data" : [ "Test entry for sorting (2025-09-23)" ]
+}, {
+  "availability" : false,
   "date" : [ 2025, 2, 1 ],
   "day" : "Thursday",
   "time" : [ [ 6, 0 ] ],
@@ -30,6 +36,12 @@
   "data" : [ "test entry 3.1", "test entry 3.2", "test entry 3.3" ]
 }, {
   "availability" : false,
+  "date" : [ 2025, 9, 10 ],
+  "day" : "Wednesday",
+  "time" : [ [ 12, 12 ] ],
+  "data" : [ "test" ]
+}, {
+  "availability" : false,
   "date" : [ 2025, 9, 18 ],
   "day" : "Thursday",
   "time" : [ [ 11, 57 ] ],
@@ -44,6 +56,12 @@
   "availability" : false,
   "date" : [ 2025, 9, 23 ],
   "day" : "Tuesday",
-  "time" : [ [ 12, 23 ], [ 10, 10 ], [ 20, 20 ], [ 5, 5 ] ],
-  "data" : [ "Test Entry 1 today", "Test Entry 1.1.1 today", "Test Entry 2 today", "Test Entry 3.1 today" ]
+  "time" : [ [ 5, 5 ], [ 6, 6 ], [ 3, 3 ] ],
+  "data" : [ "test data", "test data", "test data" ]
+}, {
+  "availability" : false,
+  "date" : [ 2026, 2, 12 ],
+  "day" : "Thursday",
+  "time" : [ [ 12, 23 ] ],
+  "data" : [ "Test Entry for sorting (2023-09-23)" ]
 } ]
